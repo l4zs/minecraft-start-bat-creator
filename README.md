@@ -7,4 +7,6 @@ How to use:
 3. (edit the start.bat to add extra args if you want)
 4. execute the start.bat and enjoy playing.
 
+
+TODO:
 - [ ] Language Selection (German, English)
