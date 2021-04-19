@@ -16,7 +16,7 @@ set /a xmx=2048
 set /a xms=2048
 
 :: change this to specified java min / max version
-set /a min=6
+set /a min=11
 set /a max=15
 
 
@@ -41,6 +41,7 @@ echo    java version: %min%
 ) else (
 echo    java version between %min% and %max%
 )
+echo    auto-accept eula: %eula%
 echo  ---------------------------------
 echo.
 echo    created by:
