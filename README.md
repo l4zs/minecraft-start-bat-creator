@@ -3,7 +3,6 @@ A simple bat file that searches through the whole drive it's executed on to find
 
 How to use:
 1. Place your server.jar and this bat in the same folder
-2. edit the bat and configure the server.jar name, ram usage and java version (search between with min < max or for a specific version with min = max)
-3. save and execute the bat, it will try to find the specified java version and create a start.bat (and a eula.txt if specified)
-4. (edit the start.bat to add extra args if you want)
-5. execute the start.bat and enjoy playing.
+2. execute the bat and set the asked values, it will try to find the specified java version and create a start.bat (search from version x to version y with min < max or for a specific version with min equal to max; and a eula.txt if specified)
+3. (edit the start.bat to add extra args if you want)
+4. execute the start.bat and enjoy playing.
