@@ -1,5 +1,5 @@
 # search-java-minecraft-start-bat
-A simple bat file that searches through the whole drive it's executed on to find a matching java.exe (java 11+ only) and then create a start.bat to start your minecraft spigot/paper server with
+A simple bat file that searches through the whole drive it's executed on to find a matching java.exe (java 9+ only currently) and then create a start.bat to start your minecraft spigot/paper server with
 
 How to use:
 1. Place your server.jar and this bat in the same folder
