@@ -83,6 +83,18 @@ set /a major=%1
 set minor=%2
 set build=%3
 :: check java version
+if %min% LEQ 8 (
+if %major% EQU 1 (
+if %minor% GEQ %min% (
+echo FOUND JAVA VERSION: %minor%
+echo.
+echo Creating start.bat
+echo.
+call :createBat
+goto End
+)
+)
+)
 if %major% GEQ %min% (
 if %major% LEQ %max% (
 echo FOUND JAVA VERSION: %major%
@@ -90,6 +102,7 @@ echo.
 echo Creating start.bat
 echo.
 call :createBat
+goto End
 )
 goto End
 )
@@ -104,20 +117,18 @@ if %eula% == true (
 echo eula=true>%currentPath%\eula.txt
 echo eula accepted!
 )
-echo Programm will exit now
-pause
 goto Exit
 
 
 :noJavaVersion
 echo No Java is installed or there is no Version between Java %min% and Java %max%
 echo Please download it from https://adoptopenjdk.net/installation.html
-echo Programm will exit now
-pause
 goto Exit
 
 
 :Exit
+echo Programm will exit now
+pause
 exit
 goto eof
 
