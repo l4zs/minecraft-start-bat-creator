@@ -6,44 +6,48 @@ Rem this programm will try to generate a start.bat with a java version between m
 :: ---------------------------------------
 
 :minIn
-set /p minIn= Enter the minimum Java Version: 
-if [%minIn%]==[] goto minIn
+SET /p minIn= Enter the minimum Java Version: 
+IF [%minIn%]==[] GOTO minIn
 SET /a param=%minIn%+0
-IF %param%==0 goto minIn
-set /a min=%minIn%
+IF %param%==0 GOTO minIn
+SET /a min=%minIn%
 
 :maxIn
-set /p maxIn= Enter the maximum Java Version: 
-if [%maxIn%]==[] goto maxIn
+SET /p maxIn= Enter the maximum Java Version: 
+IF [%maxIn%]==[] GOTO maxIn
 SET /a param=%maxIn%+0
-IF %param%==0 goto maxIn
-set /a max=%maxIn%
+IF %param%==0 GOTO maxIn
+IF NOT %maxIn% GEQ %minIn% (
+echo max has to be greater or equal than min
+GOTO minIn
+)
+SET /a max=%maxIn%
 
 :xmsIn
-set /p xmsIn= Enter the amount of RAM (in MB) for Xms: 
-if [%xmsIn%]==[] goto xmsIn
+SET /p xmsIn= Enter the amount of RAM (in MB) for Xms: 
+IF [%xmsIn%]==[] GOTO xmsIn
 SET /a param=%xmsIn%+0
-IF %param%==0 goto xmsIn
-set /a xms=%xmsIn%
+IF %param%==0 GOTO xmsIn
+SET /a xms=%xmsIn%
 
 :xmxIn
-set /p xmxIn= Enter the amount of RAM (in MB) for Xmx: 
-if [%xmxIn%]==[] goto xmxIn
+SET /p xmxIn= Enter the amount of RAM (in MB) for Xmx: 
+IF [%xmxIn%]==[] GOTO xmxIn
 SET /a param=%xmxIn%+0
-IF %param%==0 goto xmxIn
-set /a xmx=%xmxIn%
+IF %param%==0 GOTO xmxIn
+SET /a xmx=%xmxIn%
 
 :jarIn
-set /p jarIn= Enter the name of your server.jar (i.E. paper.jar):
-if [%jarIn%]==[] goto jarIn
-IF "x%jarIn:.jar=%"=="x%jarIn%" goto jarIn
-set jar=%jarIn%
+SET /p jarIn= Enter the name of your server.jar (i.E. paper.jar):
+IF [%jarIn%]==[] GOTO jarIn
+IF "x%jarIn:.jar=%"=="x%jarIn%" GOTO jarIn
+SET jar=%jarIn%
 
 :eulaIn
-set /p eulaIn= Do you want to automatically accept the minecraft eula? (true or false):
-if [%eulaIn%]==[] goto eulaIn
-if not [%eulaIn%]==[true] if not [%eulaIn%]==[false] goto eulaIn
-set eula=%eulaIn%
+SET /p eulaIn= Do you want to automatically accept the minecraft eula? (true or false):
+IF [%eulaIn%]==[] GOTO eulaIn
+IF NOT [%eulaIn%]==[true] IF NOT [%eulaIn%]==[false] GOTO eulaIn
+SET eula=%eulaIn%
 
 
 
@@ -56,9 +60,9 @@ echo.
 echo    jar-name: %jar%
 echo    Xms: %xms%MB
 echo    Xmx: %xmx%MB
-if %min% EQU %max% (
+IF %min% EQU %max% (
 echo    java version: %min%
-) else (
+) ELSE (
 echo    java version between %min% and %max%
 )
 echo    auto-accept eula: %eula%
@@ -72,7 +76,7 @@ echo    Searching for java versions..
 echo    this may take several minutes
 echo  ---------------------------------
 echo.
-if %min% LEQ 8 (
+IF %min% LEQ 8 (
 echo.
 echo  ------- WARNING -------
 echo.
@@ -83,85 +87,85 @@ echo.
 )
 cd %javaPath%
 :: loop through all java.exe's
-for /f %%i in ('dir /b /s java.exe') do call :javaCheck %%i
-goto noJavaVersion
+FOR /f %%i IN ('dir /b /s java.exe') DO CALL :javaCheck %%i
+GOTO noJavaVersion
 
 
 :javaCheck
 SET searchString=%1
 SET key=java.exe
-call SET keyRemoved=%%searchString:%key%=%%
+CALL SET keyRemoved=%%searchString:%key%=%%
 :: if path contains a java.exe
 IF NOT "x%keyRemoved%"=="x%searchString%" (
 IF "x%searchString:$Recycle.Bin=%"=="x%searchString%" (
-call :javaVersionTrim %searchString%
+CALL :javaVersionTrim %searchString%
 )
-goto End
+GOTO End
 )
-goto End
+GOTO End
 
 
 :javaVersionTrim
-set javaPath=%1
+SET javaPath=%1
 :: extract java version
-for /f "tokens=3" %%g in ('%1 -version 2^>^&1 ^| findstr /i "version"') do (
-set JAVAVER=%%g
+FOR /f "tokens=3" %%g IN ('%1 -version 2^>^&1 ^| findstr /i "version"') DO (
+SET JAVAVER=%%g
 )
-set JAVAVER=%JAVAVER:"=%
-for /f "delims=. tokens=1-3" %%v in ("%JAVAVER%") do call :javaVersionCheck %%v %%w %%x
-goto End
+SET JAVAVER=%JAVAVER:"=%
+FOR /f "delims=. tokens=1-3" %%v IN ("%JAVAVER%") DO CALL :javaVersionCheck %%v %%w %%x
+GOTO End
 
 
 :javaVersionCheck
-set /a major=%1
-set minor=%2
-set build=%3
+SET /a major=%1
+SET minor=%2
+SET build=%3
 :: check java version
-if %min% LEQ 8 (
-if %major% EQU 1 (
-if %minor% GEQ %min% (
-if %minor% LEQ %max% (
-if %minor% LEQ 8 (
+IF %min% LEQ 8 (
+IF %major% EQU 1 (
+IF %minor% GEQ %min% (
+IF %minor% LEQ %max% (
+IF %minor% LEQ 8 (
 echo  FOUND JAVA VERSION: %minor%
 echo.
 echo  Creating start.bat
 echo.
-call :createBat
-goto End
+CALL :createBat
+GOTO End
 )
-goto End
+GOTO End
 )
-goto End
+GOTO End
 )
-goto End
+GOTO End
 )
-goto End
+GOTO End
 )
-if %major% GEQ %min% (
-if %major% LEQ %max% (
+IF %major% GEQ %min% (
+IF %major% LEQ %max% (
 echo  FOUND JAVA VERSION: %major%
 echo.
 echo  Creating start.bat
 echo.
-call :createBat
-goto End
+CALL :createBat
+GOTO End
 )
-goto End
+GOTO End
 )
-goto End
+GOTO End
 
 
 :createBat
-set content=%javaPath% -Xms%xms%M -Xmx%xmx%M -jar %jar% nogui
+SET content=%javaPath% -Xms%xms%M -Xmx%xmx%M -jar %jar% nogui
 echo %content%>%currentPath%\start.bat
 echo  start.bat created!
 echo.
-if %eula% == true (
+IF %eula% == true (
 echo eula=true>%currentPath%\eula.txt
 echo  eula accepted!
 echo.
 )
-goto Exit
+GOTO Exit
 
 
 :noJavaVersion
@@ -169,15 +173,15 @@ echo  No version between Java %min% and Java %max% found.
 echo.
 echo  Please download it from https://adoptopenjdk.net/installation.html
 echo.
-goto Exit
+GOTO Exit
 
 
 :Exit
 echo  Programm will exit now
 echo.
-pause
-exit
-goto eof
+PAUSE
+EXIT
+GOTO eof
 
 
 :End
