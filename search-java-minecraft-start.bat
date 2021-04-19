@@ -90,6 +90,13 @@ echo  ------- WARNING -------
 echo.
 )
 
+FOR /f "tokens=3" %%g IN ('java -version 2^>^&1 ^| findstr /i "version"') DO (
+SET JAVAVER=%%g
+)
+SET JAVAVER=%JAVAVER:"=%
+FOR /f "delims=. tokens=1-3" %%v IN ("%JAVAVER%") DO CALL :javaVersionCheck %%v %%w %%x
+GOTO End
+
 
 cd %javaPath%
 
