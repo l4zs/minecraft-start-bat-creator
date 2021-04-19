@@ -54,7 +54,6 @@ SET eula=%eulaIn%
 
 
 SET currentPath=%cd%
-SET javaPath=%CD:~0,3%
 
 
 echo.
@@ -90,6 +89,7 @@ echo  ------- WARNING -------
 echo.
 )
 
+SET javaPath=java
 FOR /f "tokens=3" %%g IN ('java -version 2^>^&1 ^| findstr /i "version"') DO (
 SET JAVAVER=%%g
 )
@@ -97,7 +97,7 @@ SET JAVAVER=%JAVAVER:"=%
 FOR /f "delims=. tokens=1-3" %%v IN ("%JAVAVER%") DO CALL :javaVersionCheck %%v %%w %%x
 GOTO End
 
-
+SET javaPath=%CD:~0,3%
 cd %javaPath%
 
 :: loop through all java.exe's
