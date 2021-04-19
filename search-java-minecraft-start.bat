@@ -45,14 +45,18 @@ SET jar=%jarIn%
 
 :eulaIn
 SET /p eulaIn= Do you want to automatically accept the minecraft eula? (true or false):
+
 IF [%eulaIn%]==[] GOTO eulaIn
 IF NOT [%eulaIn%]==[true] IF NOT [%eulaIn%]==[false] GOTO eulaIn
 SET eula=%eulaIn%
 
 
 
-set currentPath=%cd%
-set javaPath=%CD:~0,3%
+
+SET currentPath=%cd%
+SET javaPath=%CD:~0,3%
+
+
 echo.
 echo  ---------------------------------
 echo             Settings:
@@ -85,7 +89,10 @@ echo.
 echo  ------- WARNING -------
 echo.
 )
+
+
 cd %javaPath%
+
 :: loop through all java.exe's
 FOR /f %%i IN ('dir /b /s java.exe') DO CALL :javaCheck %%i
 GOTO noJavaVersion
