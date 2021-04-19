@@ -1,29 +1,49 @@
 @echo off
 Rem this programm will try to generate a start.bat with a java version between min and max if existing, otherwise ask to install
 
-:: --------------
-:: CONFIGURE HERE
-:: --------------
-
-:: automatically accept eula
-set eula=true
-
-:: change this to the name of your server.jar i.E. paper.jar
-set jar=paper.jar
-
-:: specify the ram usage in MB here:
-set /a xmx=2048
-set /a xms=2048
-
-:: change this to specified java min / max version
-set /a min=11
-set /a max=15
-
-
-
 :: ---------------------------------------
 :: DO NOT TOUCH ANYTHING OF THE FOLLOWING!
 :: ---------------------------------------
+
+:minIn
+set /p minIn= Enter the minimum Java Version: 
+if [%minIn%]==[] goto minIn
+SET /a param=%minIn%+0
+IF %param%==0 goto minIn
+set /a min=%minIn%
+
+:maxIn
+set /p maxIn= Enter the maximum Java Version: 
+if [%maxIn%]==[] goto maxIn
+SET /a param=%maxIn%+0
+IF %param%==0 goto maxIn
+set /a max=%maxIn%
+
+:xmsIn
+set /p xmsIn= Enter the amount of RAM (in MB) for Xms: 
+if [%xmsIn%]==[] goto xmsIn
+SET /a param=%xmsIn%+0
+IF %param%==0 goto xmsIn
+set /a xms=%xmsIn%
+
+:xmxIn
+set /p xmxIn= Enter the amount of RAM (in MB) for Xmx: 
+if [%xmxIn%]==[] goto xmxIn
+SET /a param=%xmxIn%+0
+IF %param%==0 goto xmxIn
+set /a xmx=%xmxIn%
+
+:jarIn
+set /p jarIn= Enter the name of your server.jar (i.E. paper.jar):
+if [%jarIn%]==[] goto jarIn
+IF "x%jarIn:.jar=%"=="x%jarIn%" goto jarIn
+set jar=%jarIn%
+
+:eulaIn
+set /p eulaIn= Do you want to automatically accept the minecraft eula? (true or false):
+if [%eulaIn%]==[] goto eulaIn
+if not [%eulaIn%]==[true] if not [%eulaIn%]==[false] goto eulaIn
+set eula=%eulaIn%
 
 
 
@@ -31,11 +51,11 @@ set currentPath=%cd%
 set javaPath=%CD:~0,3%
 echo.
 echo  ---------------------------------
-echo               Values:
+echo             Settings:
 echo.
 echo    jar-name: %jar%
-echo    xms: %xms%
-echo    xmx: %xmx%
+echo    Xms: %xms%MB
+echo    Xmx: %xmx%MB
 if %min% EQU %max% (
 echo    java version: %min%
 ) else (
@@ -73,7 +93,10 @@ SET key=java.exe
 call SET keyRemoved=%%searchString:%key%=%%
 :: if path contains a java.exe
 IF NOT "x%keyRemoved%"=="x%searchString%" (
+IF "x%searchString:$Recycle.Bin=%"=="x%searchString%" (
 call :javaVersionTrim %searchString%
+)
+goto End
 )
 goto End
 
