@@ -16,7 +16,7 @@ set /a xmx=2048
 set /a xms=2048
 
 :: change this to specified java min / max version
-set /a min=11
+set /a min=15
 set /a max=15
 
 
@@ -36,7 +36,7 @@ echo.
 echo   jar-name: %jar%
 echo   xms: %xms%
 echo   xmx: %xmx%
-if min == max (
+if %min% EQU %max% (
 echo   java version: %min%
 ) else (
 echo   java version between %min% and %max%
