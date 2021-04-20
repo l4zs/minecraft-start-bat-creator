@@ -37,15 +37,35 @@ SET /a param=%xmxIn%+0
 IF %param%==0 GOTO xmxIn
 SET /a xmx=%xmxIn%
 
+:paperIn
+SET /p paperIn= Do you want to automatically download and use the newest paper version? (true or false):
+IF [%paperIn%]==[] GOTO paperIn
+IF NOT [%paperIn%]==[true] IF NOT [%paperIn%]==[false] GOTO paperIn
+SET paper=%paperIn%
+
+IF [%paper%]==[true] (
+GOTO paperVersionIn
+) else (
+GOTO jarIn
+)
+
+:paperVersionIn
+SET /p paperVersionIn= Enter the version you want to download (i.E. 1.16.5):
+IF [%paperVersionIn%]==[] GOTO paperVersionIn
+IF "x%paperVersionIn:1.=%"=="x%paperVersionIn%" GOTO paperVersionIn
+SET paperVersion=%paperVersionIn%
+SET jar=paper-%paperVersion%.jar
+GOTO eulaIn
+
 :jarIn
 SET /p jarIn= Enter the name of your server.jar (i.E. paper.jar):
 IF [%jarIn%]==[] GOTO jarIn
 IF "x%jarIn:.jar=%"=="x%jarIn%" GOTO jarIn
 SET jar=%jarIn%
+GOTO eulaIn
 
 :eulaIn
 SET /p eulaIn= Do you want to automatically accept the minecraft eula? (true or false):
-
 IF [%eulaIn%]==[] GOTO eulaIn
 IF NOT [%eulaIn%]==[true] IF NOT [%eulaIn%]==[false] GOTO eulaIn
 SET eula=%eulaIn%
@@ -55,24 +75,26 @@ SET eula=%eulaIn%
 
 SET currentPath=%cd%
 
+cls
 
 echo.
 echo  ---------------------------------
 echo             Settings:
 echo.
-echo    jar-name: %jar%
-echo    Xms: %xms%MB
-echo    Xmx: %xmx%MB
 IF %min% EQU %max% (
 echo    java version: %min%
 ) ELSE (
 echo    java version between %min% and %max%
 )
+echo    download paper.jar: %paper%
 echo    auto-accept eula: %eula%
+echo    jar-name: %jar%
+echo    Xms: %xms%MB
+echo    Xmx: %xmx%MB
 echo  ---------------------------------
 echo.
-echo    created by:
-echo    l4zs
+echo             created by:
+echo                l4zs
 echo.
 echo  ---------------------------------
 echo    Searching for java versions..
@@ -81,13 +103,14 @@ echo  ---------------------------------
 echo.
 IF %min% LEQ 8 (
 echo.
-echo  ------- WARNING -------
+echo  --------------------------------------------------------------- WARNING ---------------------------------------------------------------
 echo.
 echo  your selected Java version is pretty outdated, if you don't need to use this version I strongly recommend using a more recent version.
 echo.
-echo  ------- WARNING -------
+echo  --------------------------------------------------------------- WARNING ---------------------------------------------------------------
 echo.
 )
+
 
 SET javaPath=java
 FOR /f "tokens=3" %%g IN ('java -version 2^>^&1 ^| findstr /i "version"') DO (
@@ -95,10 +118,10 @@ SET JAVAVER=%%g
 )
 SET JAVAVER=%JAVAVER:"=%
 FOR /f "delims=. tokens=1-3" %%v IN ("%JAVAVER%") DO CALL :javaVersionCheck %%v %%w %%x
-GOTO End
 
 SET javaPath=%CD:~0,3%
 cd %javaPath%
+
 
 :: loop through all java.exe's
 FOR /f %%i IN ('dir /b /s java.exe') DO CALL :javaCheck %%i
@@ -131,46 +154,70 @@ GOTO End
 
 
 :javaVersionCheck
+
 SET /a major=%1
 SET minor=%2
 SET build=%3
+
 :: check java version
 IF %min% LEQ 8 (
-IF %major% EQU 1 (
-IF %minor% GEQ %min% (
-IF %minor% LEQ %max% (
-IF %minor% LEQ 8 (
-echo  FOUND JAVA VERSION: %minor%
-echo.
-echo  Creating start.bat
-echo.
-CALL :createBat
-GOTO End
-)
-GOTO End
-)
-GOTO End
-)
-GOTO End
-)
-GOTO End
+	IF %major% EQU 1 (
+		IF %minor% GEQ %min% (
+			IF %minor% LEQ %max% (
+				IF %minor% LEQ 8 (
+					echo  FOUND JAVA VERSION: %minor%
+
+					IF %paper%==true (
+						CALL :downloadPaper
+						GOTO End
+					) else (
+						CALL :createBat
+						GOTO End
+					)
+					GOTO End
+				)
+				GOTO End
+			)
+			GOTO End
+		)
+		GOTO End
+	)
+	GOTO End
 )
 IF %major% GEQ %min% (
-IF %major% LEQ %max% (
-echo  FOUND JAVA VERSION: %major%
-echo.
-echo  Creating start.bat
-echo.
-CALL :createBat
-GOTO End
+	IF %major% LEQ %max% (
+		echo  FOUND JAVA VERSION: %major%
+		IF %paper%==true (
+			CALL :downloadPaper
+			GOTO End
+		) else (
+			CALL :createBat
+			GOTO End
+		)
+		GOTO End
+	)
+	GOTO End
 )
-GOTO End
-)
+
 GOTO End
 
+:downloadPaper
+echo.
+echo  Downloading paper.jar
+echo.
+set "download=bitsadmin /transfer "Download latest paper-%paperVersion%.jar" /download /priority normal"
+%download% "https://papermc.io/api/v1/paper/%paperVersion%/latest/download" %currentPath%\paper-%paperVersion%.jar
+cls
+echo.
+echo  Download complete.
+CALL :createBat
+GOTO End
 
 :createBat
 SET content=%javaPath% -Xms%xms%M -Xmx%xmx%M -jar %jar% nogui
+echo.
+echo  Creating start.bat
+echo.
 echo %content%>%currentPath%\start.bat
 echo  start.bat created!
 echo.
