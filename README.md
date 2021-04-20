@@ -1,4 +1,4 @@
-# search-java-minecraft-start-bat
+# minecraft-start-bat-creator
 This bat aims to create a start.bat while optionally installing the latest paper.jar and/or installing a new java 
 
 * * *
