@@ -1,10 +1,6 @@
 @echo off
 Rem this programm will try to generate a start.bat with a java version between min and max if existing, otherwise ask to install
 
-:: ---------------------------------------
-:: DO NOT TOUCH ANYTHING OF THE FOLLOWING!
-:: ---------------------------------------
-
 :minIn
 SET /p minIn= Enter the minimum Java Version: 
 IF [%minIn%]==[] GOTO minIn
@@ -145,22 +141,32 @@ GOTO End
 
 :javaVersionTrim
 SET javaPath=%1
+
 :: extract java version
 FOR /f "tokens=3" %%g IN ('%1 -version 2^>^&1 ^| findstr /i "version"') DO (
 SET JAVAVER=%%g
 )
 SET JAVAVER=%JAVAVER:"=%
-FOR /f "delims=. tokens=1-3" %%v IN ("%JAVAVER%") DO CALL :javaVersionCheck %%v %%w %%x
+IF NOT "x%JAVAVER:.=%"=="x%JAVAVER%" (
+	FOR /f "delims=. tokens=1-3" %%v IN ("%JAVAVER%") DO CALL :javaVersionCheck %%v %%w %%x
+	GOTO End
+)
+SET /a ver=%JAVAVER%
+:: IF %ver% EQU 16 (
+CALL :javaVersionCheck %JAVAVER%,0,0
+:: )
 GOTO End
 
 
 :javaVersionCheck
 
 SET /a major=%1
-SET minor=%2
+SET /a minor=%2
 SET build=%3
 
 :: check java version
+IF DEFINED major (
+IF DEFINED minor (
 IF %min% LEQ 8 (
 	IF %major% EQU 1 (
 		IF %minor% GEQ %min% (
@@ -185,6 +191,7 @@ IF %min% LEQ 8 (
 	)
 	GOTO End
 )
+)
 IF %major% GEQ %min% (
 	IF %major% LEQ %max% (
 		echo  FOUND JAVA VERSION: %major%
@@ -198,6 +205,8 @@ IF %major% GEQ %min% (
 		GOTO End
 	)
 	GOTO End
+)
+GOTO End
 )
 
 GOTO End
