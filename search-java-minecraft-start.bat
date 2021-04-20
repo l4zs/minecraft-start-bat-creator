@@ -96,11 +96,6 @@ echo.
 echo             created by:
 echo                l4zs
 echo.
-echo  ---------------------------------
-echo    Searching for java versions..
-echo    this may take several minutes
-echo  ---------------------------------
-echo.
 IF %min% LEQ 8 (
 echo.
 echo  --------------------------------------------------------------- WARNING ---------------------------------------------------------------
@@ -110,6 +105,12 @@ echo.
 echo  --------------------------------------------------------------- WARNING ---------------------------------------------------------------
 echo.
 )
+echo  ---------------------------------
+echo    Searching for java versions..
+echo    this may take several minutes
+echo  ---------------------------------
+echo.
+
 
 
 SET javaPath=java
@@ -267,7 +268,7 @@ echo  [15] 15
 echo  [16] 16 (Latest)
 echo.
 
-SET /p downloadJavaVersionIn= Enter what version you want to download: 
+SET /p downloadJavaVersionIn= Enter which version you want to download: 
 IF [%downloadJavaVersionIn%]==[] GOTO downloadJava
 SET /a param=%downloadJavaVersionIn%+0
 IF %param% == 0 GOTO downloadJava
