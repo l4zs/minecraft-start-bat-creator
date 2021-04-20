@@ -205,7 +205,7 @@ GOTO End
 echo.
 echo  Downloading paper.jar
 echo.
-set "download=bitsadmin /transfer "Download latest paper-%paperVersion%.jar" /download /priority normal"
+SET "download=bitsadmin /transfer "Download latest paper-%paperVersion%.jar" /download /priority normal"
 %download% "https://papermc.io/api/v1/paper/%paperVersion%/latest/download" %currentPath%\paper-%paperVersion%.jar
 cls
 echo.
@@ -230,11 +230,111 @@ GOTO Exit
 
 
 :noJavaVersion
-echo  No version between Java %min% and Java %max% found.
+cls
 echo.
-echo  Please download it from https://adoptopenjdk.net/installation.html
+IF %min% EQU %max% (
+echo No Java %max% found.
+) else (
+echo No version between Java %min% and Java %max% found.
+)
 echo.
+echo Please download it from https://adoptopenjdk.net/installation.html
+echo.
+
+:javaIn
+SET /p javaIn= Do you want to automatically download java? (true or false):
+IF [%javaIn%]==[] GOTO javaIn
+IF NOT [%javaIn%]==[true] IF NOT [%javaIn%]==[false] GOTO javaIn
+SET java=%javaIn%
+
+IF [%java%]==[true] (
+GOTO downloadJava
+)
 GOTO Exit
+
+:downloadJava
+cls
+echo.
+echo  Which java version do you want to download?
+echo.
+echo  [8] 8 (LTS)
+echo  [9] 9
+echo  [10] 10
+echo  [11] 11 (LTS)
+echo  [13] 13
+echo  [14] 14
+echo  [15] 15
+echo  [16] 16 (Latest)
+echo.
+
+SET /p downloadJavaVersionIn= Enter what version you want to download: 
+IF [%downloadJavaVersionIn%]==[] GOTO downloadJava
+SET /a param=%downloadJavaVersionIn%+0
+IF %param% == 0 GOTO downloadJava
+IF %param% LEQ 7 GOTO downloadJava
+IF %param%==12 GOTO downloadJava
+IF %param% GEQ 17 GOTO downloadJava
+SET /a downloadJavaVersion=%downloadJavaVersionIn%
+
+:: Detect OS bit-ness on running system.  Assumes 32-bit if 64-bit components do not exist.
+SET "ARCH=x64"
+IF NOT EXIST "%SystemRoot%\SysWOW64\cmd.exe" (
+	IF NOT DEFINED PROCESSOR_ARCHITEW6432 (
+		echo Your System runs on 32-bit. Currently only 64-bit is supported.
+		GOTO Exit
+	)
+)
+
+
+SET "link=https://www.l4zs.de/r/jdk-%downloadJavaVersion%"
+
+
+CALL :downloadJDK %link%
+
+:downloadJDK
+SET "download=bitsadmin /transfer "Download Java %downloadJavaVersion% JDK" /download /priority normal"
+%download% "%1" "%UserProfile%\.jdks\jdk-%downloadJavaVersion%.zip"
+
+powershell -Command Expand-Archive -Path %UserProfile%\.jdks\jdk-%downloadJavaVersion%.zip -DestinationPath %UserProfile%\.jdks
+
+del %UserProfile%\.jdks\jdk-%downloadJavaVersion%.zip
+
+IF %downloadJavaVersion%==8 (
+SET "folder=jdk8u282-b08"
+) ELSE IF %downloadJavaVersion%==9 (
+SET "folder=jdk-9.0.4+11"
+) ELSE IF %downloadJavaVersion%==10 (
+SET "folder=jdk-10.0.2+13"
+) ELSE IF %downloadJavaVersion%==11 (
+SET "folder=jdk-11.0.10+9"
+) ELSE IF %downloadJavaVersion%==13 (
+SET "folder=jdk-13.0.2+8"
+) ELSE IF %downloadJavaVersion%==14 (
+SET "folder=jdk-14.0.2+12"
+) ELSE IF %downloadJavaVersion%==15 (
+SET "folder=jdk-15.0.2+7"
+) ELSE IF %downloadJavaVersion%==16 (
+SET "folder=jdk-16+36"
+)
+cls
+echo.
+echo Downloaded Java %downloadJavaVersion%
+
+SET "javaPath=%UserProfile%\.jdks\%folder%\bin\java.exe"
+
+IF %paper%==true (
+	CALL :downloadPaper
+	GOTO End
+) else (
+	CALL :createBat
+	GOTO End
+)
+
+pause
+
+
+GOTO Exit
+
 
 
 :Exit
