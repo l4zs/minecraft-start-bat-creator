@@ -302,12 +302,15 @@ SET "link=https://www.l4zs.de/r/jdk-%downloadJavaVersion%"
 CALL :downloadJDK %link%
 
 :downloadJDK
+IF NOT EXIST "C:\Java" (
+md C:\Java
+)
 SET "download=bitsadmin /transfer "Download Java %downloadJavaVersion% JDK" /download /priority normal"
-%download% "%1" "%UserProfile%\.jdks\jdk-%downloadJavaVersion%.zip"
+%download% "%1" "C:\Java\jdk-%downloadJavaVersion%.zip"
 
-powershell -Command Expand-Archive -Path %UserProfile%\.jdks\jdk-%downloadJavaVersion%.zip -DestinationPath %UserProfile%\.jdks
+powershell -Command Expand-Archive -Path C:\Java\jdk-%downloadJavaVersion%.zip -DestinationPath %UserProfile%\.jdks
 
-del %UserProfile%\.jdks\jdk-%downloadJavaVersion%.zip
+del C:\Java\jdk-%downloadJavaVersion%.zip
 
 IF %downloadJavaVersion%==8 (
 SET "folder=jdk8u282-b08"
@@ -330,7 +333,7 @@ cls
 echo.
 echo Downloaded Java %downloadJavaVersion%
 
-SET "javaPath=%UserProfile%\.jdks\%folder%\bin\java.exe"
+SET "javaPath=C:\Java\%folder%\bin\java.exe"
 
 IF %paper%==true (
 	CALL :downloadPaper
