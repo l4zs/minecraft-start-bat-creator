@@ -19,6 +19,19 @@ GOTO minIn
 )
 SET /a max=%maxIn%
 
+:ramIn
+SET /p ramIn= Do you want to set the ram usage (true or false):
+IF [%ramIn%]==[] GOTO ramIn
+IF NOT [%ramIn%]==[true] IF NOT [%ramIn%]==[false] GOTO ramIn
+SET ram=%ramIn%
+
+IF [%ram%]==[true] (
+GOTO xmsIn
+) else (
+GOTO paperIn
+)
+
+
 :xmsIn
 SET /p xmsIn= Enter the amount of RAM (in MB) for Xms: 
 IF [%xmsIn%]==[] GOTO xmsIn
@@ -70,7 +83,6 @@ SET eula=%eulaIn%
 
 
 SET currentPath=%cd%
-
 cls
 
 echo.
@@ -85,8 +97,10 @@ echo    java version between %min% and %max%
 echo    download paper.jar: %paper%
 echo    auto-accept eula: %eula%
 echo    jar-name: %jar%
+IF [%ram%]==[true] (
 echo    Xms: %xms%MB
 echo    Xmx: %xmx%MB
+)
 echo  ---------------------------------
 echo.
 echo             created by:
@@ -106,7 +120,6 @@ echo    Searching for java versions..
 echo    this may take several minutes
 echo  ---------------------------------
 echo.
-
 
 
 SET javaPath=java
@@ -224,7 +237,12 @@ CALL :createBat
 GOTO End
 
 :createBat
+IF [%ram%]==[true] (
 SET content=%javaPath% -Xms%xms%M -Xmx%xmx%M -jar %jar% nogui
+) else (
+SET content=%javaPath% -jar %jar% nogui
+)
+
 echo.
 echo  Creating start.bat
 echo.
@@ -356,6 +374,7 @@ echo.
 PAUSE
 EXIT
 GOTO eof
+
 
 
 :End
