@@ -326,7 +326,7 @@ md C:\Java
 SET "download=bitsadmin /transfer "Download Java %downloadJavaVersion% JDK" /download /priority normal"
 %download% "%1" "C:\Java\jdk-%downloadJavaVersion%.zip"
 
-powershell -Command Expand-Archive -Path C:\Java\jdk-%downloadJavaVersion%.zip -DestinationPath %UserProfile%\.jdks
+powershell -Command Expand-Archive -Path C:\Java\jdk-%downloadJavaVersion%.zip -DestinationPath C:\Java
 
 del C:\Java\jdk-%downloadJavaVersion%.zip
 
