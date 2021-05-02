@@ -23,3 +23,4 @@ Notice: If downloading doesn't work, try opening it as administrator
 
 ### TODO:
 - [ ] Language Selection (German, English)
+- [ ] use && in ifs haha
