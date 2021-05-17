@@ -64,14 +64,20 @@ IF [%paperVersionIn%]==[] GOTO paperVersionIn
 IF "x%paperVersionIn:1.=%"=="x%paperVersionIn%" GOTO paperVersionIn
 SET paperVersion=%paperVersionIn%
 SET jar=paper-%paperVersion%.jar
-GOTO eulaIn
+GOTO aikarFlags
 
 :jarIn
 SET /p jarIn= Enter the name of your server.jar (i.E. paper.jar):
 IF [%jarIn%]==[] GOTO jarIn
 IF "x%jarIn:.jar=%"=="x%jarIn%" GOTO jarIn
 SET jar=%jarIn%
-GOTO eulaIn
+GOTO aikarFlags
+
+:aikarFlags
+SET /p aikarFlags= Do you want to use Aikar's Flags? (recommended) (true or false):
+IF [%aikarFlags%]==[] GOTO aikarFlags
+IF NOT [%aikarFlags%]==[true] IF NOT [%aikarFlags%]==[false] GOTO aikarFlags
+SET aikarFlags=%aikarFlags%
 
 :eulaIn
 SET /p eulaIn= Do you want to automatically accept the minecraft eula? (true or false):
@@ -237,10 +243,16 @@ CALL :createBat
 GOTO End
 
 :createBat
-IF [%ram%]==[true] (
-SET content=%javaPath% -Xms%xms%M -Xmx%xmx%M -jar %jar% nogui
+IF [%aikarFlags%]==[true] (
+SET jvmFlags=-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -jar
 ) else (
-SET content=%javaPath% -jar %jar% nogui
+SET jvmFlags=-jar
+)
+
+IF [%ram%]==[true] (
+SET content=%javaPath% -Xms%xms%M -Xmx%xmx%M %jvmFlags% %jar% nogui
+) else (
+SET content=%javaPath% %jvmFlags% %jar% nogui
 )
 
 echo.
