@@ -5,9 +5,7 @@ Notice: If downloading doesn't work, try opening it as administrator, also make 
 
 * * *
 
-### Download:
-
-Download the zip (contains the bat) [here](https://github.com/l4zs/minecraft-start-bat-creator/archive/refs/heads/main.zip)
+### [Download](https://github.com/l4zs/minecraft-start-bat-creator/archive/refs/heads/main.zip)
 
 * * *
 
