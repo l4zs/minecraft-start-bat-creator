@@ -23,6 +23,5 @@ Notice: If downloading doesn't work, try opening it as administrator, also make 
 
 ### TODO:
 - [ ] Language Selection (German, English)
-- [ ] use && in ifs haha
 - [ ] option to set downloaded java as JAVA_HOME
 - [ ] switch to paper api v2
