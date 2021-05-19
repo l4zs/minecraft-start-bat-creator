@@ -19,10 +19,10 @@ This bat aims to create a start.bat while optionally installing the latest paper
 * * *
 
 ### How to use:
-**1.** Place this bat in a new folder
-**2.** execute the bat (Recommended: **Run as Administrator**) and follow the instructions (if you want just one java version set min and max to the same value)
-**3.** (edit the start.bat to add extra args if you want)
-**4.** execute the start.bat and enjoy playing.
+1. Place this bat in a new folder
+2. execute the bat (Recommended: **Run as Administrator**) and follow the instructions (if you want just one java version set min and max to the same value)
+3. (edit the start.bat to add extra args if you want)
+4. execute the start.bat and enjoy playing.
 
 * * *
 
