@@ -20,12 +20,12 @@ GOTO minIn
 SET /a max=%maxIn%
 
 :ramIn
-SET /p ramIn= Do you want to set the ram usage (true or false):
+SET /p ramIn= Do you want to set the ram usage (y/n):
 IF [%ramIn%]==[] GOTO ramIn
-IF NOT [%ramIn%]==[true] IF NOT [%ramIn%]==[false] GOTO ramIn
+IF NOT [%ramIn%]==[y] IF NOT [%ramIn%]==[n] GOTO ramIn
 SET ram=%ramIn%
 
-IF [%ram%]==[true] (
+IF [%ram%]==[y] (
 GOTO xmsIn
 ) else (
 GOTO paperIn
@@ -47,12 +47,12 @@ IF %param%==0 GOTO xmxIn
 SET /a xmx=%xmxIn%
 
 :paperIn
-SET /p paperIn= Do you want to automatically download and use the newest paper version? (true or false):
+SET /p paperIn= Do you want to automatically download and use the newest paper version? (y/n):
 IF [%paperIn%]==[] GOTO paperIn
-IF NOT [%paperIn%]==[true] IF NOT [%paperIn%]==[false] GOTO paperIn
+IF NOT [%paperIn%]==[y] IF NOT [%paperIn%]==[n] GOTO paperIn
 SET paper=%paperIn%
 
-IF [%paper%]==[true] (
+IF [%paper%]==[y] (
 GOTO paperVersionIn
 ) else (
 GOTO jarIn
@@ -74,15 +74,15 @@ SET jar=%jarIn%
 GOTO aikarFlags
 
 :aikarFlags
-SET /p aikarFlags= Do you want to use Aikar's Flags? (recommended) (true or false):
+SET /p aikarFlags= Do you want to use Aikar's Flags? (recommended) (y/n):
 IF [%aikarFlags%]==[] GOTO aikarFlags
-IF NOT [%aikarFlags%]==[true] IF NOT [%aikarFlags%]==[false] GOTO aikarFlags
+IF NOT [%aikarFlags%]==[y] IF NOT [%aikarFlags%]==[n] GOTO aikarFlags
 SET aikarFlags=%aikarFlags%
 
 :eulaIn
-SET /p eulaIn= Do you want to automatically accept the minecraft eula? (true or false):
+SET /p eulaIn= Do you want to automatically accept the minecraft eula? (y/n):
 IF [%eulaIn%]==[] GOTO eulaIn
-IF NOT [%eulaIn%]==[true] IF NOT [%eulaIn%]==[false] GOTO eulaIn
+IF NOT [%eulaIn%]==[y] IF NOT [%eulaIn%]==[n] GOTO eulaIn
 SET eula=%eulaIn%
 
 
@@ -103,7 +103,7 @@ echo    java version between %min% and %max%
 echo    download paper.jar: %paper%
 echo    auto-accept eula: %eula%
 echo    jar-name: %jar%
-IF [%ram%]==[true] (
+IF [%ram%]==[y] (
 echo    Xms: %xms%MB
 echo    Xmx: %xmx%MB
 )
@@ -193,7 +193,7 @@ IF %min% LEQ 8 (
 				IF %minor% LEQ 8 (
 					echo  FOUND JAVA VERSION: %minor%
 
-					IF %paper%==true (
+					IF %paper%==y (
 						CALL :downloadPaper
 						GOTO End
 					) else (
@@ -214,7 +214,7 @@ IF %min% LEQ 8 (
 IF %major% GEQ %min% (
 	IF %major% LEQ %max% (
 		echo  FOUND JAVA VERSION: %major%
-		IF %paper%==true (
+		IF %paper%==y (
 			CALL :downloadPaper
 			GOTO End
 		) else (
@@ -235,7 +235,7 @@ echo.
 echo  Downloading paper.jar
 echo.
 SET "download=bitsadmin /transfer "Download latest paper-%paperVersion%.jar" /download /priority normal"
-%download% "https://papermc.io/api/v1/paper/%paperVersion%/latest/download" %currentPath%\paper-%paperVersion%.jar
+%download% "https://papermc.io/api/v1/paper/%paperVersion%/latest/download" "%currentPath%\paper-%paperVersion%.jar"
 cls
 echo.
 echo  Download complete.
@@ -243,13 +243,13 @@ CALL :createBat
 GOTO End
 
 :createBat
-IF [%aikarFlags%]==[true] (
+IF [%aikarFlags%]==[y] (
 SET jvmFlags=-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -jar
 ) else (
 SET jvmFlags=-jar
 )
 
-IF [%ram%]==[true] (
+IF [%ram%]==[y] (
 SET content=%javaPath% -Xms%xms%M -Xmx%xmx%M %jvmFlags% %jar% nogui
 ) else (
 SET content=%javaPath% %jvmFlags% %jar% nogui
@@ -258,11 +258,11 @@ SET content=%javaPath% %jvmFlags% %jar% nogui
 echo.
 echo  Creating start.bat
 echo.
-echo %content%>%currentPath%\start.bat
+echo %content%>"%currentPath%\start.bat"
 echo  start.bat created!
 echo.
-IF %eula% == true (
-echo eula=true>%currentPath%\eula.txt
+IF %eula% == y (
+echo eula=true>"%currentPath%\eula.txt"
 echo  eula accepted!
 echo.
 )
@@ -282,12 +282,12 @@ echo Please download it from https://adoptopenjdk.net/installation.html
 echo.
 
 :javaIn
-SET /p javaIn= Do you want to automatically download java? (true or false):
+SET /p javaIn= Do you want to automatically download java? (y/n):
 IF [%javaIn%]==[] GOTO javaIn
-IF NOT [%javaIn%]==[true] IF NOT [%javaIn%]==[false] GOTO javaIn
+IF NOT [%javaIn%]==[y] IF NOT [%javaIn%]==[n] GOTO javaIn
 SET java=%javaIn%
 
-IF [%java%]==[true] (
+IF [%java%]==[y] (
 GOTO downloadJava
 )
 GOTO Exit
@@ -338,9 +338,9 @@ md C:\Java
 SET "download=bitsadmin /transfer "Download Java %downloadJavaVersion% JDK" /download /priority normal"
 %download% "%1" "C:\Java\jdk-%downloadJavaVersion%.zip"
 
-powershell -Command Expand-Archive -Path C:\Java\jdk-%downloadJavaVersion%.zip -DestinationPath C:\Java
+powershell -Command Expand-Archive -Path "C:\Java\jdk-%downloadJavaVersion%.zip" -DestinationPath "C:\Java"
 
-del C:\Java\jdk-%downloadJavaVersion%.zip
+del "C:\Java\jdk-%downloadJavaVersion%.zip"
 
 IF %downloadJavaVersion%==8 (
 SET "folder=jdk8u282-b08"
@@ -365,7 +365,7 @@ echo Downloaded Java %downloadJavaVersion%
 
 SET "javaPath=C:\Java\%folder%\bin\java.exe"
 
-IF %paper%==true (
+IF %paper%==y (
 	CALL :downloadPaper
 	GOTO End
 ) else (
