@@ -10,7 +10,7 @@ Notice: If downloading doesn't work, try opening it as administrator, also make 
 - easily create a start.bat for your server
 - download the latest paper.jar (*may require* the bat to be run as administrator)
 - even download java if you don't have it installed / need a different version (*may require* the bat to be run as administrator)
-- option to set the downloaded java as JAVA_Home (***requires*** the bat to be run as administrator)
+  - set the downloaded java as JAVA_Home (***requires*** the bat to be run as administrator)
 
 * * *
 
