@@ -365,6 +365,19 @@ echo Downloaded Java %downloadJavaVersion%
 
 SET "javaPath=C:\Java\%folder%\bin\java.exe"
 
+:javaHomeIn
+SET /p javaHomeIn= Do you want to set Java %downloadJavaVersion% as JAVA_HOME? - INFO: THIS REQUIRES THE BAT TO BE RUN AS ADMINISTRATOR (y/n):
+IF [%javaHomeIn%]==[] GOTO javaHomeIn
+IF NOT [%javaHomeIn%]==[y] IF NOT [%javaHomeIn%]==[n] GOTO javaHomeIn
+SET javaHome=%javaHomeIn%
+
+IF [%javaHome%]==[y] (
+setx -m JAVA_HOME "C:\Java\%folder%"
+setx -m PATH "C:\Java\%folder%\bin;%PATH%"
+echo Set JAVA_HOME to Java %downloadJavaVersion%
+SET javaPath=java
+)
+
 IF %paper%==y (
 	CALL :downloadPaper
 	GOTO End
