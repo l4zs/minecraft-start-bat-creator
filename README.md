@@ -36,7 +36,7 @@ Recommended: **Run as Administrator** as the downloading will be much faster and
 If the bat crashes randomly without any further message and you want to help fixing the error, do the following:
 - open cmd
 - Change the directory to the directory where the bat is located (`cd /path/to/bat`)
-- Execute the bat with the following command: `cmd.exe \K search-java-minecraft-start.bat`
+- Run the bat with the following command: `cmd.exe \K search-java-minecraft-start.bat`
 - try to redo everything you did before it crashed
 - instead of crashing you'll now receive an error message
 - create an [issue](https://github.com/l4zs/minecraft-start-bat-creator/issues/new) and paste the error message there
