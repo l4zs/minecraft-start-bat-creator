@@ -7,6 +7,10 @@ This bat aims to create a start.bat while optionally installing the latest paper
 
 * * *
 
+### [Download](https://github.com/l4zs/minecraft-start-bat-creator/archive/refs/heads/main.zip)
+
+* * *
+
 ### Features:
 
 create a start.bat for your server, optionally use following features:
@@ -25,10 +29,6 @@ set JAVA_HOME | ❌ | ✔️
 ❌ - doesn't work
 🟠 - can cause errors
 ✔️ - works
-
-* * *
-
-### [Download](https://github.com/l4zs/minecraft-start-bat-creator/archive/refs/heads/main.zip)
 
 * * *
 
