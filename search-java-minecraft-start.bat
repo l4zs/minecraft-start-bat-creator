@@ -2,8 +2,9 @@
 Rem this programm will try to generate a start.bat with a java version between min and max if existing, otherwise ask to install
 
 net session >nul 2>&1
-if [%errorLevel%]==[0] (
+IF [%errorLevel%]==[0] (
 echo This bat was run as administrator, every feature will be available.
+GOTO minIn
 ) else (
 echo This bat was not run as administrator, downloading a paper.jar or a java jdk may cause a crash.
 echo Also setting JAVA_HOME will not be possible without administrator.
