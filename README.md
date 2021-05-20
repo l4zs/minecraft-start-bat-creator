@@ -13,17 +13,22 @@ This bat aims to create a start.bat while optionally installing the latest paper
 
 ### Features:
 
-create a start.bat for your server
+create a start.bat for your server, optionally use following features:
 
-Option | Needs to be run as Administrator
-:-- | :-:
-download paper.jar | 🟡
-download java | 🟡
-set JAVA_HOME | ✔️
+Feature | without Administrator | with Administrator
+:-- | :-: | :-:
+create start.bat | ✔️ | ✔️
+search for specified java version | ✔️ | ✔️
+set -Xms and -Xmx values | ✔️ | ✔️
+use aikar flags | ✔️ | ✔️
+automatically accept eula | ✔️ | ✔️
+download paper.jar | 🟠 | ✔️
+download java | 🟠 | ✔️
+set JAVA_HOME | ❌ | ✔️
 
-❌ - doesn't need administrator
-🟡 - can cause errors without administrator
-✔️ - needs administrator
+❌ - doesn't work
+🟠 - can cause errors
+✔️ - works
 
 * * *
 
@@ -53,3 +58,4 @@ If the bat crashes randomly without any further message and you want to help fix
 ### TODO:
 - [ ] Language Selection (German, English)
 - [ ] switch to paper api v2
+- [ ] switch to dns redirects for jdk urls
