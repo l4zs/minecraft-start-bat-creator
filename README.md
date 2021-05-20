@@ -3,7 +3,7 @@ This bat aims to create a start.bat while optionally installing the latest paper
 
 *Although this is a start.bat creator, it is capable of creating a whole paper server (just choose to download the paper.jar)*
 
-***Notice:*** If downloading doesn't work, try opening it as administrator, also make sure that your wifi connection isn't set as metered connection.
+> 🔴 Note: If downloading doesn't work, try opening it as administrator, also make sure that your wifi connection isn't set as metered connection.
 
 * * *
 
@@ -15,7 +15,7 @@ This bat aims to create a start.bat while optionally installing the latest paper
 
 - easily create a start.bat for your server
 - download the latest paper.jar (*may require* the bat to be run as administrator)
-- even download java if you don't have it installed / need a different version (*may require* the bat to be run as administrator)
+- download java if you don't have it installed / need a different version (*may require* the bat to be run as administrator)
   - set the downloaded java as JAVA_Home (***requires*** the bat to be run as administrator)
 
 * * *
