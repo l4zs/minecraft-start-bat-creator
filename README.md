@@ -13,10 +13,17 @@ This bat aims to create a start.bat while optionally installing the latest paper
 
 ### Features:
 
-- easily create a start.bat for your server
-- download the latest paper.jar (*may require* the bat to be run as administrator)
-- download java if you don't have it installed / need a different version (*may require* the bat to be run as administrator)
-  - set the downloaded java as JAVA_Home (***requires*** the bat to be run as administrator)
+create a start.bat for your server
+
+Option | Needs to be run as Administrator
+:-- | :-:
+download paper.jar | 🟡
+download java | 🟡
+set JAVA_HOME | ✔️
+
+❌ - doesn't need administrator
+🟡 - can cause errors without administrator
+✔️ - needs administrator
 
 * * *
 
