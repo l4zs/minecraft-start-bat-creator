@@ -1,6 +1,26 @@
 @echo off
 Rem this programm will try to generate a start.bat with a java version between min and max if existing, otherwise ask to install
 
+net session >nul 2>&1
+if [%errorLevel%]==[0] (
+echo This bat was run as administrator, every feature will be available.
+) else (
+echo This bat was not run as administrator, downloading a paper.jar or a java jdk may cause a crash.
+echo Also setting JAVA_HOME will not be possible without administrator.
+echo If you want to use any of the above listed features, please close this and rerun it as administrator.
+)
+
+:adminIn
+SET /p adminIn= Do you want to continue anyways? (y/n):
+IF [%adminIn%]==[] GOTO adminIn
+IF NOT [%adminIn%]==[y] IF NOT [%adminIn%]==[n] GOTO adminIn
+SET admin=%adminIn%
+
+IF [%admin%]==[n] (
+GOTO Exit
+)
+
+
 :minIn
 SET /p minIn= Enter the minimum Java Version: 
 IF [%minIn%]==[] GOTO minIn
