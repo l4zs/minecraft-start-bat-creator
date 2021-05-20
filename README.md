@@ -7,10 +7,6 @@ This bat aims to create a start.bat while optionally installing the latest paper
 
 * * *
 
-### [Download](https://github.com/l4zs/minecraft-start-bat-creator/archive/refs/heads/main.zip)
-
-* * *
-
 ### Features:
 
 create a start.bat for your server, optionally use following features:
@@ -32,9 +28,13 @@ set JAVA_HOME | ❌ | ✔️
 
 * * *
 
+### [Download](https://github.com/l4zs/minecraft-start-bat-creator/archive/refs/heads/main.zip)
+
+* * *
+
 ### How to use:
 
-> 🟢 Recommended: **Run as Administrator** as the downloading will be much faster and some features don't work without admin perms like setting JAVA_HOME
+> 🟢 Recommended: **Run as Administrator** as the downloading (paper, jdk) will be much faster and some features don't work without admin perms like setting JAVA_HOME
 
 1. Place this bat in a new folder
 2. execute the bat and follow the instructions (if you want just one java version set min and max to the same value)
