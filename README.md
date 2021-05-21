@@ -56,4 +56,3 @@ If the bat crashes randomly without any further message and you want to help fix
 ### TODO:
 - [ ] Language Selection (German, English)
 - [ ] Switch to paper api v2
-- [ ] Switch to dns redirects for jdk urls
