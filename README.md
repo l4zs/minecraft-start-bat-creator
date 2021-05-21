@@ -43,7 +43,7 @@ set JAVA_HOME | ❌ | ✔️
 
 ### Debugging Errors:
 
-If the bat crashes randomly without any further message and you want to help fixing the error, do the following:
+If the bat crashes randomly without any further message or something doesn't work the right way and you want to help fixing the error, do the following:
 1. Open cmd
 2. Change the directory to the directory where the bat is located (`cd /path/to/bat`)
 3. Run the bat with the following command: `cmd.exe \K search-java-minecraft-start.bat`
