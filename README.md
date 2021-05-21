@@ -23,14 +23,14 @@ download java jdk | 🟠 | ✔️
 set JAVA_HOME | ❌ | ✔️
 
 ❌ - doesn't work
-🟠 - can cause errors
+🟠 - may cause errors
 ✔️ - works
 
 * * *
 
 ### How to use:
 
-> 🟢 Recommended: **Run as Administrator** as the downloading (paper, jdk) will be much faster and some features won't work without admin perms like setting JAVA_HOME
+> 🟢 Recommended: **Run as Administrator** as the downloading (paper, jdk) will be much faster and some features won't work otherwise
 
 > ℹ️ Info: If you want to download a paper.jar or a jdk make sure that your wifi connection isn't set as metered connection as it won't work otherwise
 
