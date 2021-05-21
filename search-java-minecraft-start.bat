@@ -271,9 +271,9 @@ SET jvmFlags=-jar
 )
 
 IF [%ram%]==[y] (
-SET content=%javaPath% -Xms%xms%M -Xmx%xmx%M %jvmFlags% %jar% nogui
+SET content="%javaPath%" -Xms%xms%M -Xmx%xmx%M %jvmFlags% %jar% nogui
 ) else (
-SET content=%javaPath% %jvmFlags% %jar% nogui
+SET content="%javaPath%" %jvmFlags% %jar% nogui
 )
 
 echo.
@@ -333,7 +333,7 @@ IF [%downloadJavaVersionIn%]==[] GOTO downloadJava
 SET /a param=%downloadJavaVersionIn%+0
 IF %param% == 0 GOTO downloadJava
 IF %param% LEQ 7 GOTO downloadJava
-IF %param%==12 GOTO downloadJava
+IF %param% == 12 GOTO downloadJava
 IF %param% GEQ 17 GOTO downloadJava
 SET /a downloadJavaVersion=%downloadJavaVersionIn%
 
