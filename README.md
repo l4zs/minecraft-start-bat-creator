@@ -11,8 +11,6 @@ This bat aims to create a start.bat while optionally installing the latest paper
 
 ### Features:
 
-create a start.bat for your server, optionally use following features:
-
 Feature | without Administrator | with Administrator
 :-- | :-: | :-:
 create start.bat | ✔️ | ✔️
