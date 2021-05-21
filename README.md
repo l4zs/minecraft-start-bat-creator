@@ -21,7 +21,7 @@ set -Xms and -Xmx values | ✔️ | ✔️
 use aikar flags | ✔️ | ✔️
 automatically accept eula | ✔️ | ✔️
 download paper.jar | 🟠 | ✔️
-download java | 🟠 | ✔️
+download java jdk | 🟠 | ✔️
 set JAVA_HOME | ❌ | ✔️
 
 ❌ - doesn't work
