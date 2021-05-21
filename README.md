@@ -1,7 +1,7 @@
 # minecraft-start-bat-creator
 This bat aims to create a start.bat while optionally installing the latest paper.jar and/or installing a new java 
 
-*Although this is a start.bat creator, it is capable of creating a whole paper server (just choose to download the paper.jar)*
+> ℹ️ Although this is a start.bat creator, it is capable of creating a whole paper server (just choose to download the paper.jar)
 
 > 🔴 Note: If downloading doesn't work, try opening it as administrator, also make sure that your wifi connection isn't set as metered connection.
 
