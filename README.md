@@ -5,7 +5,7 @@ This bat aims to create a start.bat while optionally installing the latest paper
 
 * * *
 
-<h3 align="center"> <a href="https://github.com/l4zs/minecraft-start-bat-creator/archive/refs/heads/main.zip">Download</a></h3>
+<h3 align="center"> <a href="https://github.com/l4zs/minecraft-start-bat-creator/releases/download/1/search-java-minecraft-start.bat">Download</a></h3>
 
 * * *
 
