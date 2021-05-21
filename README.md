@@ -34,10 +34,11 @@ set JAVA_HOME | ❌ | ✔️
 
 > ℹ️ Info: If you want to download a paper.jar or a jdk make sure that your wifi connection isn't set as metered connection as it won't work otherwise
 
-1. Place this bat in a new folder
-2. Execute the bat and follow the instructions (if you want just one java version set min and max to the same value) 
-3. (Edit the start.bat to add extra args if you want)
-4. Execute the start.bat and enjoy playing.
+1. (Unzip the zip if you downloaded it as zip)
+2. Place this bat in a new folder
+3. Execute the bat and follow the instructions (if you want just one java version set min and max to the same value) 
+4. (Edit the start.bat to add extra args if you want)
+5. Execute the start.bat and enjoy playing.
 
 * * *
 
