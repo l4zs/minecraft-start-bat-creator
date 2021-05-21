@@ -347,7 +347,7 @@ IF NOT EXIST "%SystemRoot%\SysWOW64\cmd.exe" (
 )
 
 
-SET "link=https://www.l4zs.de/r/jdk-%downloadJavaVersion%"
+SET "link=https://jdk-%downloadJavaVersion%.l4zs.de/"
 
 
 CALL :downloadJDK %link%
