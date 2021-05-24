@@ -1,6 +1,8 @@
 @echo off
 Rem this programm will try to generate a start.bat with a java version between min and max if existing, otherwise ask to install
 
+SET currentPath=%~dp0
+
 net session >nul 2>&1
 IF [%errorLevel%]==[0] (
 echo This bat was run as administrator, every feature will be available.
@@ -107,9 +109,6 @@ IF NOT [%eulaIn%]==[y] IF NOT [%eulaIn%]==[n] GOTO eulaIn
 SET eula=%eulaIn%
 
 
-
-
-SET currentPath=%cd%
 cls
 
 echo.
@@ -256,7 +255,7 @@ echo.
 echo  Downloading paper.jar
 echo.
 SET "download=bitsadmin /transfer "Download latest paper-%paperVersion%.jar" /download /priority normal"
-%download% "https://papermc.io/api/v1/paper/%paperVersion%/latest/download" "%currentPath%\paper-%paperVersion%.jar"
+%download% "https://papermc.io/api/v1/paper/%paperVersion%/latest/download" "%currentPath%paper-%paperVersion%.jar"
 cls
 echo.
 echo  Download complete.
@@ -279,11 +278,11 @@ SET content="%javaPath%" %jvmFlags% %jar% nogui
 echo.
 echo  Creating start.bat
 echo.
-echo %content%>"%currentPath%\start.bat"
+echo %content%>"%currentPath%start.bat"
 echo  start.bat created!
 echo.
 IF %eula% == y (
-echo eula=true>"%currentPath%\eula.txt"
+echo eula=true>"%currentPath%eula.txt"
 echo  eula accepted!
 echo.
 )
