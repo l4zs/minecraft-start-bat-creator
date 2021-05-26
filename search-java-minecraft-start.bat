@@ -157,11 +157,13 @@ FOR /f "delims=. tokens=1-3" %%v IN ("%JAVAVER%") DO CALL :javaVersionCheck %%v 
 
 SET javaPath=%CD:~0,3%
 cd %javaPath%
+echo %javaPath%
 
 
 :: loop through all java.exe's
-FOR /f %%i IN ('dir /b /s java.exe') DO CALL :javaCheck %%i
+FOR /f %%i IN ('dir java.exe /b /s') DO CALL :javaCheck %%i
 GOTO noJavaVersion
+
 
 
 :javaCheck
@@ -176,6 +178,7 @@ CALL :javaVersionTrim %searchString%
 GOTO End
 )
 GOTO End
+
 
 
 :javaVersionTrim
@@ -195,6 +198,7 @@ SET /a ver=%JAVAVER%
 CALL :javaVersionCheck %JAVAVER%,0,0
 :: )
 GOTO End
+
 
 
 :javaVersionCheck
@@ -247,8 +251,9 @@ IF %major% GEQ %min% (
 )
 GOTO End
 )
-
 GOTO End
+
+
 
 :downloadPaper
 echo.
@@ -261,6 +266,8 @@ echo.
 echo  Download complete.
 CALL :createBat
 GOTO End
+
+
 
 :createBat
 IF [%aikarFlags%]==[y] (
@@ -289,6 +296,7 @@ echo.
 GOTO Exit
 
 
+
 :noJavaVersion
 cls
 echo.
@@ -301,6 +309,8 @@ echo.
 echo Please download it from https://adoptopenjdk.net/installation.html
 echo.
 
+
+
 :javaIn
 SET /p javaIn= Do you want to automatically download java? (y/n):
 IF [%javaIn%]==[] GOTO javaIn
@@ -311,6 +321,8 @@ IF [%java%]==[y] (
 GOTO downloadJava
 )
 GOTO Exit
+
+
 
 :downloadJava
 cls
@@ -351,6 +363,8 @@ SET "link=https://jdk-%downloadJavaVersion%.l4zs.de/"
 
 CALL :downloadJDK %link%
 
+
+
 :downloadJDK
 IF NOT EXIST "C:\Java" (
 md C:\Java
@@ -384,6 +398,8 @@ echo.
 echo Downloaded Java %downloadJavaVersion%
 
 SET "javaPath=C:\Java\%folder%\bin\java.exe"
+
+
 
 :javaHomeIn
 SET /p javaHomeIn= Do you want to set Java %downloadJavaVersion% as JAVA_HOME? - INFO: THIS REQUIRES THE BAT TO BE RUN AS ADMINISTRATOR (y/n):
