@@ -391,7 +391,7 @@ SET "folder=jdk-14.0.2+12"
 ) ELSE IF %downloadJavaVersion%==15 (
 SET "folder=jdk-15.0.2+7"
 ) ELSE IF %downloadJavaVersion%==16 (
-SET "folder=jdk-16+36"
+SET "folder=jdk-16.0.1+9"
 )
 cls
 echo.
