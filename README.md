@@ -34,8 +34,8 @@ set JAVA_HOME | ❌ | ✔️
 
 > ℹ️ Info: If you want to download a paper.jar or a jdk make sure that your wifi connection isn't set as metered connection as it won't work otherwise
 
-1. (Unzip the zip if you downloaded it as zip)
-2. Place this bat in a new folder
+1. <a href="https://github.com/l4zs/minecraft-start-bat-creator/releases/download/v1.0.0/minecraft-start-bat-creator.bat">Download</a> the bat (DON'T CLONE THE SOURCE!)
+2. Place the bat in a new folder
 3. Execute the bat and follow the instructions (if you want just one java version set min and max to the same value) 
 4. (Edit the start.bat to add extra args if you want)
 5. Execute the start.bat and enjoy playing.
