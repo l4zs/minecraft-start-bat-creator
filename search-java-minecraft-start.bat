@@ -25,14 +25,14 @@ GOTO Exit
 
 
 :minIn
-SET /p minIn= Enter the minimum Java Version: 
+SET /p minIn= Enter the minimum Java Version (e.g. 16):
 IF [%minIn%]==[] GOTO minIn
 SET /a param=%minIn%+0
 IF %param%==0 GOTO minIn
 SET /a min=%minIn%
 
 :maxIn
-SET /p maxIn= Enter the maximum Java Version: 
+SET /p maxIn= Enter the maximum Java Version (e.g. 16):
 IF [%maxIn%]==[] GOTO maxIn
 SET /a param=%maxIn%+0
 IF %param%==0 GOTO maxIn
@@ -49,21 +49,14 @@ IF NOT [%ramIn%]==[y] IF NOT [%ramIn%]==[n] GOTO ramIn
 SET ram=%ramIn%
 
 IF [%ram%]==[y] (
-GOTO xmsIn
+GOTO xmxIn
 ) else (
 GOTO paperIn
 )
 
 
-:xmsIn
-SET /p xmsIn= Enter the amount of RAM (in MB) for Xms: 
-IF [%xmsIn%]==[] GOTO xmsIn
-SET /a param=%xmsIn%+0
-IF %param%==0 GOTO xmsIn
-SET /a xms=%xmsIn%
-
 :xmxIn
-SET /p xmxIn= Enter the amount of RAM (in MB) for Xmx: 
+SET /p xmxIn= Enter the maximum amount of RAM (in MB, e.g 512):
 IF [%xmxIn%]==[] GOTO xmxIn
 SET /a param=%xmxIn%+0
 IF %param%==0 GOTO xmxIn
@@ -97,7 +90,7 @@ SET jar=%jarIn%
 GOTO aikarFlags
 
 :aikarFlags
-SET /p aikarFlags= Do you want to use Aikar's Flags? (recommended) (y/n):
+SET /p aikarFlags= Do you want to use Aikar's Flags? (recommended, this flags might optimize the performance of your server) (y/n):
 IF [%aikarFlags%]==[] GOTO aikarFlags
 IF NOT [%aikarFlags%]==[y] IF NOT [%aikarFlags%]==[n] GOTO aikarFlags
 SET aikarFlags=%aikarFlags%
@@ -124,7 +117,6 @@ echo    download paper.jar: %paper%
 echo    auto-accept eula: %eula%
 echo    jar-name: %jar%
 IF [%ram%]==[y] (
-echo    Xms: %xms%MB
 echo    Xmx: %xmx%MB
 )
 echo  ---------------------------------
@@ -277,7 +269,7 @@ SET "jvmFlags=-jar"
 )
 
 IF [%ram%]==[y] (
-SET content="%javaPath%" -Xms%xms%M -Xmx%xmx%M %jvmFlags% %jar% nogui
+SET content="%javaPath%" -Xmx%xmx%M %jvmFlags% %jar% nogui
 ) else (
 SET content="%javaPath%" %jvmFlags% %jar% nogui
 )
