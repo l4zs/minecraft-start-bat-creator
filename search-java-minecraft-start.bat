@@ -56,7 +56,7 @@ GOTO paperIn
 
 
 :xmxIn
-SET /p xmxIn= Enter the maximum amount of RAM (in MB, e.g 512):
+SET /p xmxIn= Enter the maximum amount of RAM (in MB, e.g 1024):
 IF [%xmxIn%]==[] GOTO xmxIn
 SET /a param=%xmxIn%+0
 IF %param%==0 GOTO xmxIn
