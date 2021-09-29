@@ -1,4 +1,7 @@
 # minecraft-start-bat-creator
+<br><br><br><br><br>
+# This Project is archived, I recommend using [mcserv](https://mcserv.how) instead!
+<br><br><br><br><br><br><br><br><br><br>
 This bat aims to create a start.bat while optionally installing the latest paper.jar and/or installing a new java 
 
 > ℹ️ Although this is a start.bat creator, it is capable of creating a whole paper server (just choose to download the paper.jar)
